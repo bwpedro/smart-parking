@@ -1,0 +1,65 @@
+- type: Query
+  dataSource: user
+  field: getUser
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Mutation
+  dataSource: user
+  field: insertUser
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Mutation
+  dataSource: user
+  field: insertVehicle
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Query
+  dataSource: parking
+  field: getSpotsByStatus
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Query
+  dataSource: parking
+  field: getAllSpots
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Mutation
+  dataSource: parking
+  field: insertParkingSpots
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Mutation
+  dataSource: parking
+  field: requestSpot
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Mutation
+  dataSource: parking
+  field: requestSuccess
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Mutation
+  dataSource: parking
+  field: requestFailed
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Mutation
+  dataSource: parking
+  field: carArrived
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Mutation
+  dataSource: parking
+  field: carLeft
+  request: requests/request.vtl
+  response: responses/response.vtl

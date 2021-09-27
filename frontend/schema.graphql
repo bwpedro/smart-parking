@@ -1,0 +1,94 @@
+schema {
+	query: Query
+	mutation: Mutation
+	subscription: Subscription
+}
+
+# START TYPES
+
+type Spot {
+	spot: String!
+	status: String!
+	driverId: String
+	veihicle: String
+	startTime: String
+	endTime: String
+	date: String
+	price: Float
+}
+
+type History {
+	timestamp: AWSTimestamp!
+	driverId: String!
+	spot: String!
+	price: Float!
+}
+
+type User {
+	firstName: String!
+	lastName: String!
+	driverId: String!
+	veihicles: [String]
+}
+
+type Query {
+	getUser(driverId: String!): User
+	getAllSpots: [Spot]
+	getSpotsByStatus(status: String!): [Spot]
+	getHistory(filter: HistoryInput!): [History]
+}
+
+type Mutation {
+	insertUser(input: UserInput): Boolean!
+	insertVehicle(input: VeihiclesInput): Boolean!
+	insertParkingSpots(input: ParkingSpotsInput): Boolean!
+	requestSpot(input: RequestSpotInput): Spot
+	requestSuccess(input: RequestSpotInput): Spot
+	requestFailed(spotId: String): Spot
+	carArrived(spotId: String): Spot
+	carLeft(spotId: String): Spot
+}
+
+type Subscription {
+	onRequestSpot: Spot @aws_subscribe(mutations: ["requestSpot"])
+	onRequestSuccess: Spot @aws_subscribe(mutations: ["requestSuccess"])
+	onRequestFailed: Spot @aws_subscribe(mutations: ["requestFailed"])
+	onCarArrived: Spot @aws_subscribe(mutations: ["carArrived"])
+	onCarLeft: Spot @aws_subscribe(mutations: ["carLeft"])
+}
+
+# END TYPES
+
+# START INPUTS
+
+input HistoryInput {
+	driverId: String
+	spot: String
+}
+
+input VeihiclesInput {
+	driverId: String!
+	plates: [String]!
+}
+
+input UserInput {
+	firstName: String!
+	lastName: String!
+	driverId: String!
+}
+
+input ParkingSpotsInput {
+	sector: String!
+	nSpots: Int!
+}
+
+input RequestSpotInput {
+	spot: String!
+	driverId: String!
+	startTime: String!
+	endTime: String!
+	date: String!
+	price: Float!
+}
+
+# END INPUTS
