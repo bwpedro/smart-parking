@@ -1,0 +1,6 @@
+node_modules
+src/dev.json
+src/prod.json
+src/graphql
+src/api
+.graphqlconfig.yml
