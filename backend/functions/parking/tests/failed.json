@@ -1,8 +1,6 @@
 {
 	"field": "requestFailed",
 	"arguments": {
-		"input": {
-			"spot": "A1"
-		}
+		"spotId": "B1"
 	}
 }

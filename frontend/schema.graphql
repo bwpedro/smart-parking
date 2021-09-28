@@ -6,9 +6,16 @@ schema {
 
 # START TYPES
 
+enum SpotStaus {
+	FREE
+	IN_NEGOTIATION
+	WAITING_FOR_PARKING
+	BUSY
+}
+
 type Spot {
 	spot: String!
-	status: String!
+	status: SpotStaus!
 	driverId: String
 	veihicle: String
 	startTime: String
@@ -34,7 +41,7 @@ type User {
 type Query {
 	getUser(driverId: String!): User
 	getAllSpots: [Spot]
-	getSpotsByStatus(status: String!): [Spot]
+	getSpotsByStatus(status: SpotStaus!): [Spot]
 	getHistory(filter: HistoryInput!): [History]
 }
 
