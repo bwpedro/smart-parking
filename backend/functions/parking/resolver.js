@@ -179,25 +179,22 @@ async function carLeft(args) {
 		return null;
 	}
 
-	const payload = {
-		...spot,
-		status: 'FREE',
-	};
+	const cleared = await clearSpot(args.spotId);
 
-	if (await clearSpot(args.spotId)) {
+	if (cleared) {
 		const result = dynamodb.insertIntoTable(
 			`${process.env.APP}-parking-history-${process.env.STAGE}`,
 			{
 				uuid: v4(),
 				timestamp: Date.now(),
-				driverId: payload.driverId,
-				spot: payload.spot,
-				price: payload.price,
+				driverId: spot.driverId,
+				spot: spot.spot,
+				price: spot.price,
 				status: 'LEFT',
 			}
 		);
 
-		if (result) return payload;
+		if (result) return cleared;
 	}
 
 	return null;
