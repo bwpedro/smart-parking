@@ -27,8 +27,8 @@ const items = [
 		icon: <DirectionsCar />,
 	},
 	{
-		path: '/negotiation',
-		text: 'Negociação',
+		path: '/logs',
+		text: 'Logs',
 		icon: <Autorenew />,
 	},
 ];
@@ -41,8 +41,6 @@ const SideMenu: React.FC<ISideMenuProperties> = ({
 	const history = useHistory();
 	const { pathname } = useLocation();
 	const routePath = `/${pathname.split('/')[1]}`;
-
-	console.log(routePath);
 
 	const [selectedIndex, setSelectedIndex] = useState(
 		routePath !== '/'

@@ -6,7 +6,7 @@ import Spot from 'components/spot';
 import Legend from 'components/legend';
 import useStyles from './styles';
 
-const ParkingActivity: React.FC = () => {
+const Monitor: React.FC = () => {
 	const { allSpots } = useParking();
 	const classes = useStyles();
 
@@ -20,7 +20,7 @@ const ParkingActivity: React.FC = () => {
 					<Grid item sm={6} xs={12}>
 						<Sector name="SETOR A">
 							{allSpots?.slice(0, 10).map((spot) => (
-								<Spot spot={spot} />
+								<Spot key={spot.spot} spot={spot} />
 							))}
 						</Sector>
 					</Grid>
@@ -31,7 +31,7 @@ const ParkingActivity: React.FC = () => {
 					<Grid item sm={6} xs={12}>
 						<Sector name="SETOR B">
 							{allSpots?.slice(10, 20).map((spot) => (
-								<Spot spot={spot} />
+								<Spot key={spot.spot} spot={spot} />
 							))}
 						</Sector>
 					</Grid>
@@ -41,4 +41,4 @@ const ParkingActivity: React.FC = () => {
 	);
 };
 
-export default ParkingActivity;
+export default Monitor;

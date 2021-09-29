@@ -13,11 +13,12 @@ import * as Types from '../../api/types';
 import useStyles from './styles';
 
 const Driver: React.FC = () => {
+	const driverId = '063.820.049-01';
+
 	const classes = useStyles();
 	const subscriptions = useSubscription();
 	const showMessage = useSnackbar();
 	const { allSpots } = useParking();
-	const driverId = '063.820.049-01';
 
 	function onRequestSpot({ status, veihicle, ...spot }: Types.Spot) {
 		showMessage('Requisitando vaga...', 'info');
@@ -35,10 +36,7 @@ const Driver: React.FC = () => {
 
 		void requestSpot(input, (error, data) => {
 			if (data) {
-				showMessage(
-					'Vaga requisitada, aguarde a negociação.',
-					'success'
-				);
+				showMessage('Aguarde a negociação.', 'info');
 			} else if (error) {
 				showMessage('Ocorreu um erro na requisição.', 'error');
 			}
@@ -75,7 +73,8 @@ const Driver: React.FC = () => {
 
 		return () => {
 			if (subscriptions) {
-				subscriptions.unsubscribe('onRequestSpot');
+				subscriptions.unsubscribe('onRequestFailed');
+				subscriptions.unsubscribe('onRequestSuccess');
 			}
 		};
 	}, [subscriptions, showMessage]);
@@ -90,7 +89,11 @@ const Driver: React.FC = () => {
 					<Grid item sm={6} xs={12}>
 						<Sector name="SETOR A">
 							{allSpots?.slice(0, 10).map((spot) => (
-								<Spot onClick={onRequestSpot} spot={spot} />
+								<Spot
+									key={spot.spot}
+									onClick={onRequestSpot}
+									spot={spot}
+								/>
 							))}
 						</Sector>
 					</Grid>
@@ -100,7 +103,11 @@ const Driver: React.FC = () => {
 					<Grid item sm={6} xs={12}>
 						<Sector name="SETOR B">
 							{allSpots?.slice(10, 20).map((spot) => (
-								<Spot onClick={onRequestSpot} spot={spot} />
+								<Spot
+									key={spot.spot}
+									onClick={onRequestSpot}
+									spot={spot}
+								/>
 							))}
 						</Sector>
 					</Grid>

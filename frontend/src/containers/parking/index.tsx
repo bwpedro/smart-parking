@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useParking } from 'context/parking';
 import clsx from 'clsx';
@@ -6,6 +5,7 @@ import { CircularProgress } from '@material-ui/core';
 import getAllSpots from 'requests/getAllSpots';
 import Header from 'components/header';
 import SideMenu from 'components/sideMenu';
+import useNegotiation from 'hooks/useNegotiation';
 import { useSubscription } from '../../context/subscription';
 import * as Types from '../../api/types';
 import {
@@ -35,6 +35,8 @@ function sortAlphaNumber(a: Types.Spot, b: Types.Spot) {
 const Parking: React.FC = () => {
 	const rootClasses = useStyles();
 	const subscriptions = useSubscription();
+	const negotiate = useNegotiation();
+
 	const { allSpots, setAllSpots, updateSpot } = useParking();
 
 	const [sideMenuIsOpen, setSideMenuOpen] = useState(false);
@@ -47,7 +49,7 @@ const Parking: React.FC = () => {
 				console.error(error);
 			}
 		});
-	}, []);
+	}, [setAllSpots]);
 
 	useEffect(() => {
 		if (!subscriptions) {
@@ -56,7 +58,9 @@ const Parking: React.FC = () => {
 
 		subscriptions.subscribe<Types.Spot>({ onRequestSpot }, (response) => {
 			if (response) {
+				const { status, veihicle, ...spot } = response;
 				updateSpot(response);
+				negotiate(spot as Types.RequestSpotInput);
 			}
 		});
 
@@ -96,7 +100,7 @@ const Parking: React.FC = () => {
 				subscriptions.unsubscribe('onRequestSuccess');
 			}
 		};
-	}, [subscriptions]);
+	}, [subscriptions, updateSpot, negotiate]);
 
 	if (!allSpots || !allSpots?.length) {
 		return (
