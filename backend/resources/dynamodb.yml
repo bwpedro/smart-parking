@@ -5,11 +5,19 @@ Resources:
             AttributeDefinitions:
                 - AttributeName: driverId
                   AttributeType: S
+                - AttributeName: role
+                  AttributeType: S
             BillingMode: PAY_PER_REQUEST
             GlobalSecondaryIndexes:
                 - IndexName: driverIdIndex
                   KeySchema:
                       - AttributeName: driverId
+                        KeyType: HASH
+                  Projection:
+                      ProjectionType: ALL
+                - IndexName: roleIndex
+                  KeySchema:
+                      - AttributeName: role
                         KeyType: HASH
                   Projection:
                       ProjectionType: ALL

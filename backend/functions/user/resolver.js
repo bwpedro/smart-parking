@@ -1,4 +1,5 @@
 const diff = require('deep-diff');
+const md5 = require('md5');
 const { dynamodb } = require('./utils');
 
 const insertUser = async (args) => {
@@ -8,6 +9,7 @@ const insertUser = async (args) => {
 		`${process.env.APP}-user-${process.env.STAGE}`,
 		{
 			...input,
+			password: md5(input.password),
 		}
 	);
 };
@@ -20,6 +22,16 @@ const getUser = async ({ driverId }) => {
 	);
 
 	if (result) return result;
+
+	return null;
+};
+
+const login = async ({ driverId, password }) => {
+	const user = await getUser({ driverId });
+
+	if (user.password === md5(password)) {
+		return user;
+	}
 
 	return null;
 };
@@ -51,5 +63,6 @@ const insertVehicle = async (args) => {
 module.exports = {
 	insertUser,
 	getUser,
+	login,
 	insertVehicle,
 };

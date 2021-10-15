@@ -17,6 +17,12 @@
   response: responses/response.vtl
 
 - type: Query
+  dataSource: user
+  field: login
+  request: requests/request.vtl
+  response: responses/response.vtl
+
+- type: Query
   dataSource: parking
   field: getSpotsByStatus
   request: requests/request.vtl

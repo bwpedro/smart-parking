@@ -7,6 +7,8 @@ exports.handler = async (event) => {
 				return await resolver.insertUser(event.arguments);
 			case 'getUser':
 				return await resolver.getUser(event.arguments);
+			case 'login':
+				return await resolver.login(event.arguments);
 			case 'insertVehicle':
 				return await resolver.insertVehicle(event.arguments);
 			default:

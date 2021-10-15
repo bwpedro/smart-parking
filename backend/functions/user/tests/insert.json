@@ -4,7 +4,9 @@
 		"input": {
 			"firstName": "Pedro",
 			"lastName": "Warmling Botelho",
-			"driverId": "063.820.049-01"
+			"driverId": "063.820.049-01",
+			"password": "cebola123",
+			"role": "admin"
 		}
 	}
 }
