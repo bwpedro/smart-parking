@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import {
 	jssPreset,
@@ -8,11 +8,30 @@ import {
 import { create } from 'jss';
 import jssExtend from 'jss-plugin-extend';
 import SubscriptionProvider from 'context/subscription';
-import ParkingProvider from 'context/parking';
+import ParkingProvider, { useParking } from 'context/parking';
 import { SnackbarProvider } from 'notistack';
 import Parking from './parking';
 import defaultTheme from '../themes/default';
 import useGlobalStyles from './globalStyles';
+import Login from './login/page';
+
+const PreParking: React.FC = () => {
+	const storageUser = window.localStorage.getItem('user');
+
+	const { currentUser, setCurrentUser } = useParking();
+
+	useEffect(() => {
+		if (storageUser) {
+			setCurrentUser(JSON.parse(storageUser));
+		}
+	}, [storageUser, setCurrentUser]);
+
+	if (!storageUser && !currentUser) {
+		return <Login />;
+	}
+
+	return <Parking />;
+};
 
 const SmartParking: React.FC = () => {
 	useGlobalStyles();
@@ -28,7 +47,7 @@ const SmartParking: React.FC = () => {
 					<SnackbarProvider maxSnack={3}>
 						<SubscriptionProvider>
 							<ParkingProvider>
-								<Parking />
+								<PreParking />
 							</ParkingProvider>
 						</SubscriptionProvider>
 					</SnackbarProvider>

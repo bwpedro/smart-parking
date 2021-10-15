@@ -35,6 +35,7 @@ type User {
 	firstName: String!
 	lastName: String!
 	driverId: String!
+	role: String!
 	veihicles: [String]
 }
 
@@ -43,6 +44,7 @@ type Query {
 	getAllSpots: [Spot]
 	getSpotsByStatus(status: SpotStaus!): [Spot]
 	getHistory(filter: HistoryInput!): [History]
+	login(driverId: String!, password: String!): User
 }
 
 type Mutation {
@@ -82,6 +84,8 @@ input UserInput {
 	firstName: String!
 	lastName: String!
 	driverId: String!
+	role: String!
+	password: String!
 }
 
 input ParkingSpotsInput {

@@ -2,6 +2,8 @@ import React, { createContext, useState, useCallback } from 'react';
 import * as Types from '../api/types';
 
 interface IParkingContext {
+	currentUser: Types.User | undefined;
+	setCurrentUser: (user: Types.User) => void;
 	allSpots: Types.Spot[] | undefined;
 	setAllSpots: (spots: Types.Spot[]) => void;
 	updateSpot: (spot: Types.Spot) => void;
@@ -12,6 +14,7 @@ interface IParkingContext {
 const ParkingContext = createContext<IParkingContext | null>(null);
 
 const ParkingProvider: React.FC = ({ children }) => {
+	const [currentUser, setCurrentUser] = useState<Types.User | undefined>();
 	const [allSpots, setAllSpots] = useState<Types.Spot[] | undefined>();
 	const [logs, setLogs] = useState<string[]>([]);
 
@@ -36,6 +39,8 @@ const ParkingProvider: React.FC = ({ children }) => {
 	return (
 		<ParkingContext.Provider
 			value={{
+				currentUser,
+				setCurrentUser,
 				allSpots,
 				setAllSpots,
 				updateSpot,

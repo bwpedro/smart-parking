@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, IconButton } from '@material-ui/core';
-import { Menu } from '@material-ui/icons';
+import { Menu, ExitToApp } from '@material-ui/icons';
 import clsx from 'clsx';
 import { useHistory } from 'react-router';
 import { useStyles } from './styles';
@@ -43,6 +43,23 @@ const Header: React.FC<IAppHeaderProperties> = ({ open, onSideMenuChange }) => {
 							src="https://www.smartparking.ipb.pt/images/logo.png"
 							alt="Medcloud"
 						/>
+					</IconButton>
+					<IconButton
+						style={{
+							position: 'absolute',
+							right: 0,
+							marginRight: 16,
+						}}
+						disableRipple
+						classes={{ root: classes.iconButton }}
+						color="inherit"
+						onClick={() => {
+							window.localStorage.setItem('user', '');
+							window.location.reload();
+						}}
+						edge="start"
+					>
+						<ExitToApp />
 					</IconButton>
 				</Toolbar>
 			</AppBar>

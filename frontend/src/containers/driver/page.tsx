@@ -13,12 +13,12 @@ import * as Types from '../../api/types';
 import useStyles from './styles';
 
 const Driver: React.FC = () => {
-	const driverId = '063.820.049-01';
-
 	const classes = useStyles();
 	const subscriptions = useSubscription();
 	const showMessage = useSnackbar();
-	const { allSpots } = useParking();
+	const { currentUser, allSpots } = useParking();
+
+	const driverId = currentUser?.driverId ?? '';
 
 	function onRequestSpot({ status, veihicle, ...spot }: Types.Spot) {
 		showMessage('Requisitando vaga...', 'info');
